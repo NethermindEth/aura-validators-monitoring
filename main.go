@@ -145,7 +145,11 @@ func reportSkippedSteps(validatorSet []*common.Address, firstSkipped, currStep i
 				continue
 			}
 			msg := tgbotapi.NewMessage(tgNotiChanID, rawMessage)
-			botApi.Send(msg)
+			_, err = botApi.Send(msg)
+			if err != nil {
+				log.Printf("Failed to send message: %v", err)
+				continue
+			}
 		}
 	}
 }
